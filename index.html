@@ -86,10 +86,6 @@
       padding: 10px 18px;
       cursor: pointer;
     }
-
-    button:hover {
-      background: #665039;
-    }
   </style>
 </head>
 
@@ -121,35 +117,9 @@
 
 </main>
 
-<script>
+<script src="data.js"></script>
 
-const documents = [
-  {
-    title: "DOCUMENTO 001",
-    date: "DATA SCONOSCIUTA",
-    text: "Questo è un documento di prova. In seguito potrai sostituire questo testo con il tuo."
-  },
-  {
-    title: "DOCUMENTO 002",
-    date: "DATA SCONOSCIUTA",
-    text: "Secondo documento di prova."
-  },
-  {
-    title: "DOCUMENTO 003",
-    date: "DATA SCONOSCIUTA",
-    text: "Terzo documento di prova."
-  },
-  {
-    title: "DOCUMENTO 004",
-    date: "DATA SCONOSCIUTA",
-    text: "Quarto documento di prova."
-  },
-  {
-    title: "DOCUMENTO 005",
-    date: "DATA SCONOSCIUTA",
-    text: "Quinto documento di prova."
-  }
-];
+<script>
 
 const documentList = document.getElementById("documents");
 const search = document.getElementById("search");
@@ -206,7 +176,9 @@ search.addEventListener("input", () => {
   const filtered = documents.filter(doc =>
     doc.title.toLowerCase().includes(query) ||
     doc.text.toLowerCase().includes(query) ||
-    doc.date.toLowerCase().includes(query)
+    doc.date.toLowerCase().includes(query) ||
+    doc.characters.join(" ").toLowerCase().includes(query) ||
+    doc.keywords.join(" ").toLowerCase().includes(query)
   );
 
   showDocuments(filtered);
