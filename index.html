@@ -3,55 +3,85 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Archivio</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <header>
+
 <h1>ARCHIVIO</h1>
+
 <p>Archivio storico — Accesso autorizzato</p>
+
 </header>
+
 
 <main>
 
 <nav class="menu">
+
 <button onclick="showArchive()">📜 DOCUMENTI</button>
+
 <button onclick="showCharacters()">👤 PERSONAGGI</button>
+
 <button onclick="showTree()">🌳 GENEALOGIA</button>
+
 <button onclick="showNotes()">📝 NOTE</button>
+
 <button onclick="showSolve()">🔐 SOLUZIONE</button>
+
 </nav>
+
+
+<!-- ================= DOCUMENTI ================= -->
 
 <section id="archive">
 
-<input id="search"
+<input
+id="search"
 class="search"
-placeholder="Cerca nome, parola chiave, documento o data...">
+placeholder="Cerca nome, parola chiave, documento o data..."
+>
 
 <div id="documents"></div>
 
 </section>
 
 
+<!-- ================= VISUALIZZATORE DOCUMENTO ================= -->
+
 <section id="viewer" style="display:none">
 
 <div class="actions">
+
 <button onclick="showArchive()">← Archivio</button>
+
 <button onclick="toggleImportant()">⭐ Importante</button>
+
 </div>
 
 <div class="paper">
+
 <h2 id="viewerTitle"></h2>
+
 <p id="viewerDate"></p>
+
 <hr>
+
 <div id="viewerText"></div>
+
 </div>
 
 </section>
 
+
+<!-- ================= PERSONAGGI ================= -->
 
 <section id="charactersSection" style="display:none">
 
@@ -62,6 +92,8 @@ placeholder="Cerca nome, parola chiave, documento o data...">
 </section>
 
 
+<!-- ================= SCHEDA PERSONAGGIO ================= -->
+
 <section id="characterViewer" style="display:none">
 
 <button onclick="showCharacters()">← Personaggi</button>
@@ -69,6 +101,8 @@ placeholder="Cerca nome, parola chiave, documento o data...">
 <div class="paper">
 
 <h2 id="characterName"></h2>
+
+<div id="characterPower"></div>
 
 <p id="characterDates"></p>
 
@@ -78,7 +112,7 @@ placeholder="Cerca nome, parola chiave, documento o data...">
 
 <p id="characterBiography"></p>
 
-<h3>RELazioni</h3>
+<h3>RELAZIONI</h3>
 
 <div id="characterRelations"></div>
 
@@ -91,16 +125,43 @@ placeholder="Cerca nome, parola chiave, documento o data...">
 </section>
 
 
+<!-- ================= ALBERO ================= -->
+
 <section id="treeSection" style="display:none">
 
 <h2>🌳 ALBERO GENEALOGICO</h2>
 
-<p>La genealogia viene costruita automaticamente dai dati dei personaggi.</p>
+<p class="tree-intro">
+Le linee genealogiche delle casate conosciute.
+I collegamenti biologici e adottivi sono distinti.
+</p>
+
+<div class="legend">
+
+<span class="legend-item">
+<span class="legend-line biological"></span>
+Discendenza biologica
+</span>
+
+<span class="legend-item">
+<span class="legend-line marriage"></span>
+Matrimonio
+</span>
+
+<span class="legend-item">
+<span class="legend-line adoption"></span>
+Adozione
+</span>
+
+</div>
+
 
 <div id="familyTree"></div>
 
 </section>
 
+
+<!-- ================= NOTE ================= -->
 
 <section id="notesSection" style="display:none">
 
@@ -109,10 +170,13 @@ placeholder="Cerca nome, parola chiave, documento o data...">
 <textarea
 id="notes"
 class="note"
-placeholder="Scrivi qui i tuoi appunti..."></textarea>
+placeholder="Scrivi qui i tuoi appunti..."
+></textarea>
 
 </section>
 
+
+<!-- ================= SOLUZIONE ================= -->
 
 <section id="solveSection" style="display:none">
 
@@ -120,16 +184,22 @@ placeholder="Scrivi qui i tuoi appunti..."></textarea>
 
 <h2>🔐 RISOLVI IL CASO</h2>
 
-<p>Quando pensi di aver capito il mistero, inserisci la tua risposta.</p>
+<p>
+Quando pensi di aver capito il mistero,
+inserisci la tua risposta.
+</p>
 
 <textarea
 id="solution"
 class="note"
-placeholder="La mia soluzione..."></textarea>
+placeholder="La mia soluzione..."
+></textarea>
 
 <br><br>
 
-<button onclick="solveCase()">CONFERMA SOLUZIONE</button>
+<button onclick="solveCase()">
+CONFERMA SOLUZIONE
+</button>
 
 <p id="solveResult"></p>
 
@@ -139,7 +209,9 @@ placeholder="La mia soluzione..."></textarea>
 
 </main>
 
+
 <script src="data.js"></script>
+
 
 <script>
 
@@ -149,11 +221,17 @@ let important = JSON.parse(
 localStorage.getItem("important") || "[]"
 );
 
+
 const search =
 document.getElementById("search");
 
 const docsContainer =
 document.getElementById("documents");
+
+
+/* =========================================================
+   NAVIGAZIONE
+   ========================================================= */
 
 function hideAll() {
 
@@ -165,6 +243,7 @@ function hideAll() {
 "treeSection",
 "notesSection",
 "solveSection"
+
 ].forEach(id => {
 
 document.getElementById(id).style.display = "none";
@@ -172,6 +251,11 @@ document.getElementById(id).style.display = "none";
 });
 
 }
+
+
+/* =========================================================
+   DOCUMENTI
+   ========================================================= */
 
 function showArchive() {
 
@@ -183,22 +267,30 @@ renderDocuments(documents);
 
 }
 
+
 function renderDocuments(list) {
 
 docsContainer.innerHTML = "";
 
 list.forEach(doc => {
 
-const el = document.createElement("div");
+const el =
+document.createElement("div");
 
 el.className = "document";
 
 el.innerHTML = `
+
 <h2>${doc.title}</h2>
-<div class="date">${doc.date}</div>
+
+<div class="date">
+${doc.date}
+</div>
+
 `;
 
-el.onclick = () => openDocument(doc);
+el.onclick = () =>
+openDocument(doc);
 
 docsContainer.appendChild(el);
 
@@ -206,33 +298,39 @@ docsContainer.appendChild(el);
 
 }
 
+
 function openDocument(doc) {
 
 currentDocument = doc;
 
 hideAll();
 
-document.getElementById("viewer").style.display = "block";
+document.getElementById("viewer")
+.style.display = "block";
 
-document.getElementById("viewerTitle").textContent =
-doc.title;
+document.getElementById("viewerTitle")
+.textContent = doc.title;
 
-document.getElementById("viewerDate").textContent =
-doc.date;
+document.getElementById("viewerDate")
+.textContent = doc.date;
 
-document.getElementById("viewerText").textContent =
-doc.text;
+document.getElementById("viewerText")
+.textContent = doc.text;
 
 }
 
+
 function toggleImportant() {
 
-if (!currentDocument) return;
+if (!currentDocument)
+return;
 
 if (important.includes(currentDocument.id)) {
 
 important =
-important.filter(id => id !== currentDocument.id);
+important.filter(
+id => id !== currentDocument.id
+);
 
 } else {
 
@@ -249,24 +347,24 @@ alert("Stato del documento aggiornato.");
 
 }
 
+
 search.addEventListener("input", () => {
 
-const q = search.value.toLowerCase();
+const q =
+search.value.toLowerCase();
 
-const result = documents.filter(doc =>
+const result =
+documents.filter(doc =>
 
 doc.title.toLowerCase().includes(q) ||
+
 doc.text.toLowerCase().includes(q) ||
+
 doc.date.toLowerCase().includes(q) ||
-doc.keywords.join(" ").toLowerCase().includes(q) ||
-doc.characters.some(id => {
 
-const c = characters.find(x => x.id === id);
-
-return c &&
-c.name.toLowerCase().includes(q);
-
-})
+doc.keywords.join(" ")
+.toLowerCase()
+.includes(q)
 
 );
 
@@ -275,6 +373,10 @@ renderDocuments(result);
 });
 
 
+/* =========================================================
+   PERSONAGGI
+   ========================================================= */
+
 function showCharacters() {
 
 hideAll();
@@ -282,23 +384,29 @@ hideAll();
 document.getElementById("charactersSection")
 .style.display = "block";
 
+
 const container =
 document.getElementById("characters");
 
 container.innerHTML = "";
+
 
 characters.forEach(character => {
 
 const el =
 document.createElement("div");
 
-el.className = "document";
+el.className =
+"document character-card";
 
 el.innerHTML = `
+
 <h2>${character.name}</h2>
-<div class="date">
-${character.birth || "Data sconosciuta"}
+
+<div class="power power-${character.power.toLowerCase()}">
+${character.power}
 </div>
+
 `;
 
 el.onclick = () =>
@@ -318,8 +426,21 @@ hideAll();
 document.getElementById("characterViewer")
 .style.display = "block";
 
+
 document.getElementById("characterName")
-.textContent = character.name;
+.textContent =
+character.name;
+
+
+document.getElementById("characterPower")
+innerHTML = `
+
+<span class="power power-${character.power.toLowerCase()}">
+Linea: ${character.power}
+</span>
+
+`;
+
 
 document.getElementById("characterDates")
 .textContent =
@@ -328,64 +449,115 @@ document.getElementById("characterDates")
 " • Morte: " +
 (character.death || "sconosciuta");
 
+
 document.getElementById("characterBiography")
 .textContent =
 character.biography;
+
+
+/* RELAZIONI */
 
 const relations =
 document.getElementById("characterRelations");
 
 relations.innerHTML = "";
 
-[
-["Padre", character.father],
-["Madre", character.mother],
-["Coniuge", character.spouse]
-].forEach(([label,id]) => {
 
-if (!id) return;
+if (character.father) {
 
-const person =
-characters.find(c => c.id === id);
+addRelation(
+relations,
+"Padre",
+character.father
+);
 
-if (!person) return;
+}
 
-const el =
-document.createElement("div");
 
-el.className = "stat";
+if (character.mother) {
 
-el.textContent =
-label + ": " + person.name;
+addRelation(
+relations,
+"Madre",
+character.mother
+);
 
-el.onclick = () =>
-openCharacter(person);
+}
 
-relations.appendChild(el);
+
+if (character.spouse) {
+
+addRelation(
+relations,
+"Coniuge",
+character.spouse
+);
+
+}
+
+
+if (character.adoptedBy) {
+
+addRelation(
+relations,
+"Adottato da",
+character.adoptedBy
+);
+
+}
+
+
+if (
+character.adopts &&
+character.adopts.length
+) {
+
+character.adopts.forEach(id => {
+
+addRelation(
+relations,
+"Adotta",
+id
+);
 
 });
 
+}
+
+
+/* DOCUMENTI */
 
 const docs =
 document.getElementById("characterDocuments");
 
 docs.innerHTML = "";
 
-character.documents.forEach(id => {
+
+(character.documents || []).forEach(id => {
 
 const doc =
-documents.find(d => d.id === id);
+documents.find(
+d => d.id === id
+);
 
-if (!doc) return;
+if (!doc)
+return;
+
 
 const el =
 document.createElement("div");
 
 el.className = "document";
 
-el.innerHTML =
-`<h2>${doc.title}</h2>
-<div class="date">${doc.date}</div>`;
+el.innerHTML = `
+
+<h2>${doc.title}</h2>
+
+<div class="date">
+${doc.date}
+</div>
+
+`;
 
 el.onclick = () =>
 openDocument(doc);
@@ -396,6 +568,46 @@ docs.appendChild(el);
 
 }
 
+
+function addRelation(container, label, id) {
+
+const person =
+characters.find(
+c => c.id === id
+);
+
+if (!person)
+return;
+
+
+const el =
+document.createElement("div");
+
+el.className =
+"stat relation";
+
+el.innerHTML = `
+
+<strong>${label}:</strong>
+${person.name}
+
+<span class="small-power">
+${person.power}
+</span>
+
+`;
+
+el.onclick = () =>
+openCharacter(person);
+
+container.appendChild(el);
+
+}
+
+
+/* =========================================================
+   GENEALOGIA
+   ========================================================= */
 
 function showTree() {
 
@@ -409,6 +621,184 @@ buildTree();
 }
 
 
+/*
+   Creazione di una persona
+*/
+
+function createPersonNode(id) {
+
+const person =
+characters.find(
+c => c.id === id
+);
+
+if (!person)
+return null;
+
+
+const node =
+document.createElement("div");
+
+node.className =
+"tree-person";
+
+
+node.innerHTML = `
+
+<div class="tree-name">
+${person.name}
+</div>
+
+<div class="tree-power power-${person.power.toLowerCase()}">
+${person.power}
+</div>
+
+`;
+
+
+node.onclick = () =>
+openCharacter(person);
+
+
+return node;
+
+}
+
+
+/*
+   Crea una coppia matrimoniale
+*/
+
+function createCouple(person1, person2) {
+
+const couple =
+document.createElement("div");
+
+couple.className =
+"couple";
+
+
+const first =
+createPersonNode(person1);
+
+const second =
+createPersonNode(person2);
+
+
+couple.appendChild(first);
+
+
+const marriage =
+document.createElement("div");
+
+marriage.className =
+"marriage-symbol";
+
+marriage.textContent =
+"♥";
+
+
+couple.appendChild(marriage);
+
+couple.appendChild(second);
+
+
+return couple;
+
+}
+
+
+/*
+   Crea una famiglia
+*/
+
+function createFamily(
+parent1,
+parent2,
+children
+) {
+
+const family =
+document.createElement("div");
+
+family.className =
+"family";
+
+
+const couple =
+createCouple(
+parent1,
+parent2
+);
+
+
+family.appendChild(couple);
+
+
+if (children.length > 0) {
+
+const connector =
+document.createElement("div");
+
+connector.className =
+"children-connector";
+
+family.appendChild(connector);
+
+
+const childrenContainer =
+document.createElement("div");
+
+childrenContainer.className =
+"children";
+
+
+children.forEach(child => {
+
+const childBox =
+document.createElement("div");
+
+childBox.className =
+"child";
+
+
+const line =
+document.createElement("div");
+
+line.className =
+"vertical-line";
+
+
+childBox.appendChild(line);
+
+childBox.appendChild(
+createPersonNode(child)
+);
+
+
+childrenContainer.appendChild(
+childBox
+);
+
+});
+
+
+family.appendChild(
+childrenContainer
+);
+
+}
+
+
+return family;
+
+}
+
+
+/*
+   Albero completo
+*/
+
 function buildTree() {
 
 const tree =
@@ -416,83 +806,370 @@ document.getElementById("familyTree");
 
 tree.innerHTML = "";
 
-const roots =
-characters.filter(c =>
-!c.father && !c.mother
+
+/* =========================================
+   FAMIGLIA DI MERLINO
+   ========================================= */
+
+const title1 =
+document.createElement("h3");
+
+title1.className =
+"tree-title";
+
+title1.textContent =
+"CASATA DI MERLINO";
+
+tree.appendChild(title1);
+
+
+/* Merlino */
+
+tree.appendChild(
+createFamily(
+"merlino",
+"belladonna",
+[
+"thalassia",
+"balthazar",
+"totmes",
+"sycoraxa"
+]
+)
 );
 
-const generations = [];
 
-function addGeneration(list, level) {
+/* Thalassia */
 
-if (!list.length) return;
+tree.appendChild(
+createFamily(
+"thalassia",
+"dagda",
+[
+"morozov"
+]
+)
+);
 
-if (!generations[level])
-generations[level] = [];
 
-list.forEach(person => {
+/* Morozov */
 
-if (!generations[level].includes(person))
-generations[level].push(person);
+const morozovFamily =
+createFamily(
+"morozov",
+"valeda",
+[
+"armacus"
+);
 
-});
+tree.appendChild(morozovFamily);
 
-const children = [];
 
-list.forEach(parent => {
+/* Balthazar */
 
-characters.forEach(child => {
+tree.appendChild(
+createFamily(
+"balthazar",
+"vespra",
+[
+"zenobia",
+"zaccaria"
+]
+)
+);
 
-if (
-child.father === parent.id ||
-child.mother === parent.id
-) {
 
-if (!children.includes(child))
-children.push(child);
+/* Zenobia */
 
-}
+tree.appendChild(
+createFamily(
+"zenobia",
+"mamivaza",
+[
+"miranda",
+"zacmovis",
+"mugrut"
+]
+)
+);
 
-});
 
-});
+/* Zaccaria */
 
-addGeneration(children, level + 1);
+tree.appendChild(
+createFamily(
+"zaccaria",
+"shei",
+[
+"cerridwen"
+]
+)
+);
 
-}
 
-addGeneration(roots, 0);
+/* =========================================
+   COLLEGAMENTO TRA LE DUE CASATE
+   ========================================= */
 
-generations.forEach(level => {
-
-const row =
+const bridge =
 document.createElement("div");
 
-row.className = "tree-level";
+bridge.className =
+"family-bridge";
 
-level.forEach(person => {
+bridge.innerHTML = `
 
-const el =
+<div class="bridge-line"></div>
+
+<div class="bridge-text">
+Unione delle due casate
+</div>
+
+`;
+
+
+tree.appendChild(bridge);
+
+
+/* =========================================
+   SECONDO ALBERO
+   ========================================= */
+
+const title2 =
+document.createElement("h3");
+
+title2.className =
+"tree-title";
+
+title2.textContent =
+"CASATA DI THOMAS";
+
+tree.appendChild(title2);
+
+
+/* Thomas */
+
+tree.appendChild(
+createFamily(
+"thomas",
+"lianna",
+[
+"xantos",
+"luna"
+]
+)
+);
+
+
+/* Xantos + Sycoraxa */
+
+tree.appendChild(
+createFamily(
+"xantos",
+"sycoraxa",
+[
+"ciprian",
+"ipaparoti"
+]
+)
+);
+
+
+/* Ciprian */
+
+tree.appendChild(
+createFamily(
+"ciprian",
+"melli",
+[
+"ivain",
+"kyzen",
+"sculd"
+]
+)
+);
+
+
+/* Ipapatoti */
+
+const ipaparotiFamily =
 document.createElement("div");
 
-el.className = "tree-person";
+ipaparotiFamily.className =
+"family standalone-family";
 
-el.textContent =
-person.name;
 
-el.onclick = () =>
-openCharacter(person);
+ipaparotiFamily.appendChild(
+createPersonNode("ipaparoti")
+);
 
-row.appendChild(el);
+
+const ipChildren =
+document.createElement("div");
+
+ipChildren.className =
+"children";
+
+
+["tages", "wanrt"].forEach(id => {
+
+const child =
+document.createElement("div");
+
+child.className =
+"child";
+
+child.appendChild(
+createPersonNode(id)
+);
+
+ipChildren.appendChild(child);
 
 });
 
-tree.appendChild(row);
 
-});
+ipaparotiFamily.appendChild(
+ipChildren
+);
+
+tree.appendChild(
+ipaparotiFamily
+);
+
+
+/* Wanrt + Ivain */
+
+tree.appendChild(
+createFamily(
+"wanrt",
+"ivain",
+[
+"nabu"
+]
+)
+);
+
+
+/* Nabu */
+
+const nabuFamily =
+document.createElement("div");
+
+nabuFamily.className =
+"family standalone-family";
+
+nabuFamily.appendChild(
+createPersonNode("nabu")
+);
+
+const nabuLine =
+document.createElement("div");
+
+nabuLine.className =
+"children";
+
+const seiamusChild =
+document.createElement("div");
+
+seiamusChild.className =
+"child";
+
+seiamusChild.appendChild(
+createPersonNode("seiamus")
+);
+
+nabuLine.appendChild(
+seiamusChild
+);
+
+nabuFamily.appendChild(
+nabuLine
+);
+
+tree.appendChild(
+nabuFamily
+);
+
+
+/* Armacus + Flaminia */
+
+tree.appendChild(
+createFamily(
+"armacus",
+"flaminia",
+[
+"alzacars"
+]
+)
+);
+
+
+/* Alzacars + Seiamius */
+
+tree.appendChild(
+createFamily(
+"alzacars",
+"seiamus",
+[
+"morgana"
+]
+)
+);
+
+
+/* =========================================
+   ADOZIONE
+   ========================================= */
+
+const adoption =
+document.createElement("div");
+
+adoption.className =
+"adoption-panel";
+
+
+adoption.innerHTML = `
+
+<div class="adoption-title">
+ADOZIONE
+</div>
+
+<div class="adoption-content">
+
+<div class="adoption-person">
+Armacus
+<span>Potente</span>
+</div>
+
+<div class="adoption-arrow">
+⇢
+</div>
+
+<div class="adoption-person">
+Kyzen
+<span>Umano</span>
+</div>
+
+</div>
+
+<p>
+Armacus è figlio biologico di Morozov e Valeda.
+Successivamente viene adottato da Kyzen.
+</p>
+
+`;
+
+
+tree.appendChild(
+adoption
+);
 
 }
 
+
+/* =========================================================
+   NOTE
+   ========================================================= */
 
 function showNotes() {
 
@@ -500,6 +1177,7 @@ hideAll();
 
 document.getElementById("notesSection")
 .style.display = "block";
+
 
 document.getElementById("notes").value =
 localStorage.getItem("notes") || "";
@@ -509,15 +1187,22 @@ localStorage.getItem("notes") || "";
 
 document
 .getElementById("notes")
-.addEventListener("input", e => {
+.addEventListener(
+"input",
+e => {
 
 localStorage.setItem(
 "notes",
 e.target.value
 );
 
-});
+}
+);
 
+
+/* =========================================================
+   SOLUZIONE
+   ========================================================= */
 
 function showSolve() {
 
@@ -525,6 +1210,7 @@ hideAll();
 
 document.getElementById("solveSection")
 .style.display = "block";
+
 
 document.getElementById("solution").value =
 localStorage.getItem("solution") || "";
@@ -537,10 +1223,12 @@ function solveCase() {
 const answer =
 document.getElementById("solution").value;
 
+
 localStorage.setItem(
 "solution",
 answer
 );
+
 
 document.getElementById("solveResult")
 .textContent =
@@ -549,9 +1237,12 @@ document.getElementById("solveResult")
 }
 
 
+/* AVVIO */
+
 showArchive();
 
 </script>
 
 </body>
+
 </html>
