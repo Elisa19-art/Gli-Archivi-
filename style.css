@@ -150,3 +150,73 @@ button:hover {
     padding: 25px;
   }
 }
+/* ALBERO GENEALOGICO */
+
+#treeSection {
+  text-align: center;
+  padding: 20px;
+}
+
+.tree-intro {
+  color: #91a083;
+  margin-bottom: 40px;
+}
+
+#familyTree {
+  position: relative;
+  min-height: 500px;
+  padding: 60px 20px;
+  overflow: auto;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #304a32 0%,
+      #1a2b20 45%,
+      #0d1711 100%
+    );
+
+  border: 2px solid #5d6846;
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,.7),
+    0 10px 30px rgba(0,0,0,.5);
+}
+
+.tree-trunk {
+  position: relative;
+  display: inline-block;
+  padding: 35px 70px;
+  background: #4a3523;
+  border: 4px solid #6b5133;
+  border-radius: 50%;
+  color: #e0d5b5;
+  box-shadow: 0 10px 25px rgba(0,0,0,.6);
+}
+
+.tree-root {
+  font-family: "Cinzel", serif;
+  color: #d4c68e;
+  font-size: 20px;
+}
+
+.tree-branches {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 80px;
+}
+
+.tree-branch {
+  padding: 20px 30px;
+  background: #263d2a;
+  border: 2px solid #697650;
+  border-radius: 50%;
+  color: #d8d1b4;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.tree-branch:hover {
+  background: #38553b;
+  transform: scale(1.05);
+}
