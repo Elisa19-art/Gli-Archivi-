@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archivio</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #17130f;
+      color: #e8dcc8;
+      font-family: Georgia, serif;
+    }
+
+    header {
+      padding: 30px;
+      text-align: center;
+      border-bottom: 1px solid #5b4935;
+      background: #211b15;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 4px;
+    }
+
+    header p {
+      color: #9f907b;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .search {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15px;
+      background: #0f0d0b;
+      border: 1px solid #5b4935;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .document {
+      background: #211b15;
+      border: 1px solid #4d3d2c;
+      padding: 20px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    .document:hover {
+      background: #2b231b;
+      border-color: #92734d;
+    }
+
+    .document h2 {
+      margin-top: 0;
+      color: #d6b77d;
+    }
+
+    .date {
+      color: #8f806d;
+      font-size: 14px;
+    }
+
+    #viewer {
+      display: none;
+      background: #ded1b8;
+      color: #211b15;
+      padding: 40px;
+      margin-top: 30px;
+      line-height: 1.7;
+    }
+
+    button {
+      background: #4b3927;
+      color: #eee;
+      border: 1px solid #806445;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #665039;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>ARCHIVIO</h1>
+  <p>Archivio storico — Accesso autorizzato</p>
+</header>
+
+<main>
+
+  <input
+    id="search"
+    class="search"
+    type="text"
+    placeholder="Cerca documenti..."
+  >
+
+  <section id="documents"></section>
+
+  <section id="viewer">
+    <button onclick="closeDocument()">← Torna all'archivio</button>
+    <h2 id="viewerTitle"></h2>
+    <p id="viewerDate"></p>
+    <hr>
+    <div id="viewerText"></div>
+  </section>
+
+</main>
+
+<script>
+
+const documents = [
+  {
+    title: "DOCUMENTO 001",
+    date: "DATA SCONOSCIUTA",
+    text: "Questo è un documento di prova. In seguito potrai sostituire questo testo con il tuo."
+  },
+  {
+    title: "DOCUMENTO 002",
+    date: "DATA SCONOSCIUTA",
+    text: "Secondo documento di prova."
+  },
+  {
+    title: "DOCUMENTO 003",
+    date: "DATA SCONOSCIUTA",
+    text: "Terzo documento di prova."
+  },
+  {
+    title: "DOCUMENTO 004",
+    date: "DATA SCONOSCIUTA",
+    text: "Quarto documento di prova."
+  },
+  {
+    title: "DOCUMENTO 005",
+    date: "DATA SCONOSCIUTA",
+    text: "Quinto documento di prova."
+  }
+];
+
+const documentList = document.getElementById("documents");
+const search = document.getElementById("search");
+
+function showDocuments(list) {
+
+  documentList.innerHTML = "";
+
+  list.forEach((doc) => {
+
+    const element = document.createElement("div");
+
+    element.className = "document";
+
+    element.innerHTML = `
+      <h2>${doc.title}</h2>
+      <div class="date">${doc.date}</div>
+    `;
+
+    element.onclick = () => openDocument(doc);
+
+    documentList.appendChild(element);
+
+  });
+
+}
+
+function openDocument(doc) {
+
+  documentList.style.display = "none";
+  search.style.display = "none";
+
+  document.getElementById("viewer").style.display = "block";
+
+  document.getElementById("viewerTitle").textContent = doc.title;
+  document.getElementById("viewerDate").textContent = doc.date;
+  document.getElementById("viewerText").textContent = doc.text;
+
+}
+
+function closeDocument() {
+
+  documentList.style.display = "block";
+  search.style.display = "block";
+
+  document.getElementById("viewer").style.display = "none";
+
+}
+
+search.addEventListener("input", () => {
+
+  const query = search.value.toLowerCase();
+
+  const filtered = documents.filter(doc =>
+    doc.title.toLowerCase().includes(query) ||
+    doc.text.toLowerCase().includes(query) ||
+    doc.date.toLowerCase().includes(query)
+  );
+
+  showDocuments(filtered);
+
+});
+
+showDocuments(documents);
+
+</script>
+
+</body>
+</html>
