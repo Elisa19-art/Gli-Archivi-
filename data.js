@@ -41,58 +41,106 @@ const documents = [
   }
 ];
 
+
 const characters = [
+
   {
     id: 1,
     name: "CHARACTER A",
     birth: "",
     death: "",
     biography: "BIOGRAFIA DA INSERIRE",
+
+    father: null,
+    mother: null,
+    spouse: null,
+
     documents: [1]
   },
+
   {
     id: 2,
     name: "CHARACTER B",
     birth: "",
     death: "",
     biography: "BIOGRAFIA DA INSERIRE",
+
+    father: 1,
+    mother: null,
+    spouse: null,
+
     documents: [2]
   },
+
   {
     id: 3,
     name: "CHARACTER C",
     birth: "",
     death: "",
     biography: "BIOGRAFIA DA INSERIRE",
+
+    father: 1,
+    mother: null,
+    spouse: null,
+
     documents: [3]
   },
+
   {
     id: 4,
     name: "CHARACTER D",
     birth: "",
     death: "",
     biography: "BIOGRAFIA DA INSERIRE",
+
+    father: 2,
+    mother: null,
+    spouse: null,
+
     documents: [4]
   },
+
   {
     id: 5,
     name: "CHARACTER E",
     birth: "",
     death: "",
     biography: "BIOGRAFIA DA INSERIRE",
+
+    father: 3,
+    mother: null,
+    spouse: null,
+
     documents: [5]
   }
+
 ];
 
+
 const relationships = [
+
   {
-    from: "CHARACTER A",
-    to: "CHARACTER B",
-    type: "relazione"
+    from: 1,
+    to: 2,
+    type: "figlio"
   },
+
   {
-    from: "CHARACTER B",
-    to: "CHARACTER C",
-    type: "relazione"
+    from: 1,
+    to: 3,
+    type: "figlio"
+  },
+
+  {
+    from: 2,
+    to: 4,
+    type: "figlio"
+  },
+
+  {
+    from: 3,
+    to: 5,
+    type: "figlio"
   }
+
 ];
