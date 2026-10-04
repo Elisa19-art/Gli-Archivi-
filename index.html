@@ -1,124 +1,401 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Archivio</title>
+<meta charset="UTF-8">
 
-  <link rel="stylesheet" href="style.css">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Archivio</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <header>
-  <h1>ARCHIVIO</h1>
-  <p>Archivio storico — Accesso autorizzato</p>
+
+<h1>ARCHIVIO</h1>
+
+<p>Archivio storico — Accesso autorizzato</p>
+
 </header>
+
 
 <main>
 
-  <input
-    id="search"
-    class="search"
-    type="text"
-    placeholder="Cerca documenti..."
-  >
+<!-- MENU -->
 
-  <section id="documents"></section>
+<nav class="menu">
 
-  <section id="viewer">
+<button onclick="showArchive()">
+DOCUMENTI
+</button>
 
-    <button onclick="closeDocument()">
-      ← Torna all'archivio
-    </button>
+<button onclick="showCharacters()">
+PERSONAGGI
+</button>
 
-    <h2 id="viewerTitle"></h2>
+</nav>
 
-    <p id="viewerDate"></p>
 
-    <hr>
+<!-- ARCHIVIO -->
 
-    <div id="viewerText"></div>
+<section id="archive">
 
-  </section>
+<input
+id="search"
+class="search"
+type="text"
+placeholder="Cerca documenti..."
+>
+
+<section id="documents"></section>
+
+</section>
+
+
+<!-- PERSONAGGI -->
+
+<section id="charactersSection"
+style="display:none">
+
+<h2>PERSONAGGI</h2>
+
+<div id="characters"></div>
+
+</section>
+
+
+<!-- DOCUMENTO -->
+
+<section id="viewer">
+
+<button onclick="closeDocument()">
+← Torna all'archivio
+</button>
+
+<h2 id="viewerTitle"></h2>
+
+<p id="viewerDate"></p>
+
+<hr>
+
+<div id="viewerText"></div>
+
+</section>
+
+
+<!-- PERSONAGGIO -->
+
+<section id="characterViewer"
+style="display:none">
+
+<button onclick="showCharacters()">
+← Torna ai personaggi
+</button>
+
+<h2 id="characterName"></h2>
+
+<p id="characterDates"></p>
+
+<hr>
+
+<h3>Biografia</h3>
+
+<p id="characterBiography"></p>
+
+<h3>DOCUMENTI COLLEGATI</h3>
+
+<div id="characterDocuments"></div>
+
+</section>
 
 </main>
 
+
 <script src="data.js"></script>
+
 
 <script>
 
-const documentList = document.getElementById("documents");
-const search = document.getElementById("search");
+const documentList =
+document.getElementById("documents");
+
+const search =
+document.getElementById("search");
+
+const charactersList =
+document.getElementById("characters");
+
+
+/* DOCUMENTI */
 
 function showDocuments(list) {
 
-  documentList.innerHTML = "";
+documentList.innerHTML = "";
 
-  list.forEach((doc) => {
+list.forEach((doc) => {
 
-    const element = document.createElement("div");
+const element =
+document.createElement("div");
 
-    element.className = "document";
+element.className = "document";
 
-    element.innerHTML = `
-      <h2>${doc.title}</h2>
-      <div class="date">${doc.date}</div>
-    `;
+element.innerHTML = `
 
-    element.onclick = () => openDocument(doc);
+<h2>${doc.title}</h2>
 
-    documentList.appendChild(element);
+<div class="date">
+${doc.date}
+</div>
 
-  });
+`;
+
+element.onclick =
+() => openDocument(doc);
+
+documentList.appendChild(element);
+
+});
 
 }
+
+
+/* APRI DOCUMENTO */
 
 function openDocument(doc) {
 
-  documentList.style.display = "none";
-  search.style.display = "none";
+document.getElementById("archive")
+.style.display = "none";
 
-  document.getElementById("viewer").style.display = "block";
+document.getElementById("charactersSection")
+.style.display = "none";
 
-  document.getElementById("viewerTitle").textContent = doc.title;
+document.getElementById("viewer")
+.style.display = "block";
 
-  document.getElementById("viewerDate").textContent = doc.date;
+document.getElementById("characterViewer")
+.style.display = "none";
 
-  document.getElementById("viewerText").textContent = doc.text;
+document.getElementById("viewerTitle")
+.textContent = doc.title;
+
+document.getElementById("viewerDate")
+.textContent = doc.date;
+
+document.getElementById("viewerText")
+.textContent = doc.text;
 
 }
+
+
+/* CHIUDI DOCUMENTO */
 
 function closeDocument() {
 
-  documentList.style.display = "block";
-
-  search.style.display = "block";
-
-  document.getElementById("viewer").style.display = "none";
+showArchive();
 
 }
 
-search.addEventListener("input", () => {
 
-  const query = search.value.toLowerCase();
+/* ARCHIVIO */
 
-  const filtered = documents.filter(doc =>
-    doc.title.toLowerCase().includes(query) ||
-    doc.text.toLowerCase().includes(query) ||
-    doc.date.toLowerCase().includes(query) ||
-    doc.characters.join(" ").toLowerCase().includes(query) ||
-    doc.keywords.join(" ").toLowerCase().includes(query)
-  );
+function showArchive() {
 
-  showDocuments(filtered);
+document.getElementById("archive")
+.style.display = "block";
+
+document.getElementById("charactersSection")
+.style.display = "none";
+
+document.getElementById("viewer")
+.style.display = "none";
+
+document.getElementById("characterViewer")
+.style.display = "none";
+
+}
+
+
+/* PERSONAGGI */
+
+function showCharacters() {
+
+document.getElementById("archive")
+.style.display = "none";
+
+document.getElementById("viewer")
+.style.display = "none";
+
+document.getElementById("characterViewer")
+.style.display = "none";
+
+document.getElementById("charactersSection")
+.style.display = "block";
+
+charactersList.innerHTML = "";
+
+characters.forEach((character) => {
+
+const element =
+document.createElement("div");
+
+element.className = "document";
+
+element.innerHTML = `
+
+<h2>${character.name}</h2>
+
+<div class="date">
+${character.birth || "Data sconosciuta"}
+</div>
+
+`;
+
+element.onclick =
+() => openCharacter(character);
+
+charactersList.appendChild(element);
 
 });
+
+}
+
+
+/* APRI PERSONAGGIO */
+
+function openCharacter(character) {
+
+document.getElementById("archive")
+.style.display = "none";
+
+document.getElementById("charactersSection")
+.style.display = "none";
+
+document.getElementById("viewer")
+.style.display = "none";
+
+document.getElementById("characterViewer")
+.style.display = "block";
+
+
+document.getElementById("characterName")
+.textContent =
+character.name;
+
+
+document.getElementById("characterDates")
+.textContent =
+
+"Nascita: " +
+(character.birth || "sconosciuta") +
+
+" • Morte: " +
+(character.death || "sconosciuta");
+
+
+document.getElementById("characterBiography")
+.textContent =
+character.biography;
+
+
+const docs =
+document.getElementById("characterDocuments");
+
+docs.innerHTML = "";
+
+
+character.documents.forEach((id) => {
+
+const doc =
+documents.find(d => d.id === id);
+
+if (!doc) return;
+
+const element =
+document.createElement("div");
+
+element.className = "document";
+
+element.innerHTML = `
+
+<h2>${doc.title}</h2>
+
+<div class="date">
+${doc.date}
+</div>
+
+`;
+
+element.onclick =
+() => openDocument(doc);
+
+docs.appendChild(element);
+
+});
+
+}
+
+
+/* RICERCA */
+
+search.addEventListener(
+"input",
+() => {
+
+const query =
+search.value.toLowerCase();
+
+const filtered =
+documents.filter(doc =>
+
+doc.title
+.toLowerCase()
+.includes(query)
+
+||
+
+doc.text
+.toLowerCase()
+.includes(query)
+
+||
+
+doc.date
+.toLowerCase()
+.includes(query)
+
+||
+
+doc.characters
+.join(" ")
+.toLowerCase()
+.includes(query)
+
+||
+
+doc.keywords
+.join(" ")
+.toLowerCase()
+.includes(query)
+
+);
+
+showDocuments(filtered);
+
+});
+
+
+/* AVVIO */
 
 showDocuments(documents);
 
 </script>
 
 </body>
+
 </html>
