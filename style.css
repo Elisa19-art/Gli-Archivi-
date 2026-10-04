@@ -1,189 +1,914 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:wght@400;700&display=swap');
 
+
 * {
   box-sizing: border-box;
 }
 
+
 body {
   margin: 0;
   min-height: 100vh;
+
   background:
-    radial-gradient(circle at top, #304c34, #142019 48%, #080d0a);
+    radial-gradient(
+      circle at top,
+      #304c34,
+      #142019 48%,
+      #080d0a
+    );
+
   color: #ddd5b8;
-  font-family: "Libre Baskerville", Georgia, serif;
+
+  font-family:
+    "Libre Baskerville",
+    Georgia,
+    serif;
 }
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 header {
   text-align: center;
+
   padding: 42px 20px;
-  background: rgba(6,15,9,.9);
-  border-bottom: 1px solid #68764e;
+
+  background:
+    rgba(6,15,9,.9);
+
+  border-bottom:
+    1px solid #68764e;
 }
+
 
 header h1 {
   margin: 0;
-  font: 600 40px "Cinzel", serif;
+
+  font:
+    600 40px "Cinzel",
+    serif;
+
   letter-spacing: 8px;
+
   color: #d0c795;
-  text-shadow: 0 3px 15px #000;
+
+  text-shadow:
+    0 3px 15px #000;
 }
+
 
 header p {
   color: #89977c;
+
   letter-spacing: 2px;
 }
 
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
 main {
-  max-width: 1100px;
+  max-width: 1400px;
+
   margin: 30px auto;
+
   padding: 20px;
 }
 
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
 .menu {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 10px;
+
   margin-bottom: 25px;
 }
+
 
 button {
   padding: 11px 17px;
+
   color: #e0dac0;
+
   background: #24382a;
-  border: 1px solid #68764e;
+
+  border:
+    1px solid #68764e;
+
   border-radius: 4px;
+
   font-family: inherit;
+
   cursor: pointer;
-}
 
-button:hover {
-  background: #3a563d;
-}
-
-.search {
-  width: 100%;
-  padding: 16px;
-  margin-bottom: 25px;
-  background: #0c1510;
-  border: 1px solid #596746;
-  color: white;
-  font-family: inherit;
-}
-
-.document {
-  padding: 22px;
-  margin: 12px 0;
-  background: linear-gradient(135deg,#25372a,#17251c);
-  border: 1px solid #4e6044;
-  border-left: 4px solid #84905b;
-  cursor: pointer;
   transition: .2s;
 }
 
-.document:hover {
-  transform: translateX(5px);
-  background: #2e4432;
+
+button:hover {
+  background: #3a563d;
+
+  transform:
+    translateY(-1px);
 }
 
-.document h2 {
-  margin: 0 0 8px;
-  color: #d0c795;
-  font: 600 20px "Cinzel", serif;
-}
 
-.date {
-  color: #879477;
-  font-size: 12px;
-}
+/* =========================================================
+   SEARCH
+   ========================================================= */
 
-#viewer,
-#characterViewer,
-#treeSection,
-#notesSection,
-#solveSection {
-  margin-top: 25px;
-}
-
-.paper {
-  padding: 45px;
-  background: #d8d0ae;
-  color: #292a20;
-  border: 8px solid #394b36;
-  line-height: 1.9;
-}
-
-.paper h2 {
-  color: #30432f;
-  font-family: "Cinzel", serif;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-
-.note {
+.search {
   width: 100%;
-  min-height: 180px;
-  padding: 15px;
-  background: #101a13;
-  color: #ddd5b8;
-  border: 1px solid #596746;
+
+  padding: 16px;
+
+  margin-bottom: 25px;
+
+  background: #0c1510;
+
+  border:
+    1px solid #596746;
+
+  color: white;
+
   font-family: inherit;
 }
 
-#familyTree {
-  min-height: 600px;
-  padding: 80px 30px;
-  overflow: auto;
-  text-align: center;
+
+/* =========================================================
+   DOCUMENTI
+   ========================================================= */
+
+.document {
+  padding: 22px;
+
+  margin: 12px 0;
+
   background:
-    radial-gradient(ellipse at center,#345638,#18291d 55%,#0b130d);
-  border: 2px solid #697650;
-  box-shadow: inset 0 0 80px #000;
-}
+    linear-gradient(
+      135deg,
+      #25372a,
+      #17251c
+    );
 
-.tree-level {
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  margin: 35px auto;
-  flex-wrap: wrap;
-}
+  border:
+    1px solid #4e6044;
 
-.tree-person {
-  min-width: 150px;
-  padding: 18px;
-  background: #4b3522;
-  border: 3px solid #765632;
-  border-radius: 45%;
-  color: #e3d7ad;
+  border-left:
+    4px solid #84905b;
+
   cursor: pointer;
-  box-shadow: 0 7px 20px #0008;
+
+  transition: .2s;
 }
 
-.tree-person:hover {
-  background: #65492b;
-  transform: scale(1.05);
+
+.document:hover {
+  transform:
+    translateX(5px);
+
+  background:
+    #2e4432;
 }
+
+
+.document h2 {
+  margin:
+    0 0 8px;
+
+  color: #d0c795;
+
+  font:
+    600 20px "Cinzel",
+    serif;
+}
+
+
+.date {
+  color: #879477;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   PAPER
+   ========================================================= */
+
+.paper {
+  padding: 45px;
+
+  background:
+    #d8d0ae;
+
+  color: #292a20;
+
+  border:
+    8px solid #394b36;
+
+  line-height: 1.9;
+}
+
+
+.paper h2 {
+  color: #30432f;
+
+  font-family:
+    "Cinzel",
+    serif;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.actions {
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  margin: 20px 0;
+}
+
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.note {
+  width: 100%;
+
+  min-height: 180px;
+
+  padding: 15px;
+
+  background: #101a13;
+
+  color: #ddd5b8;
+
+  border:
+    1px solid #596746;
+
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   PERSONAGGI
+   ========================================================= */
+
+.power {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  padding: 6px 12px;
+
+  border-radius: 3px;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+
+.power-umano,
+.power-umana {
+  background: #555a52;
+
+  color: #ddd;
+}
+
+
+.power-non-maga {
+  background: #211c1b;
+
+  color: #a99d91;
+}
+
+
+.power-scarsa {
+  background: #3d463c;
+
+  color: #b5c0a8;
+}
+
+
+.power-media {
+  background: #4d5131;
+
+  color: #e0d99b;
+}
+
+
+.power-potente {
+  background: #613c2e;
+
+  color: #f0b58e;
+}
+
+
+.character-card {
+  position: relative;
+}
+
 
 .stat {
   display: inline-block;
+
   margin: 5px;
-  padding: 7px 12px;
+
+  padding: 10px 14px;
+
   background: #263d2b;
-  border: 1px solid #63734d;
+
+  border:
+    1px solid #63734d;
+
+  cursor: pointer;
 }
 
-@media(max-width:700px) {
+
+.relation:hover {
+  background: #344f39;
+}
+
+
+.small-power {
+  display: block;
+
+  margin-top: 4px;
+
+  opacity: .7;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   GENEALOGIA
+   ========================================================= */
+
+.tree-intro {
+  color: #89977c;
+
+  max-width: 800px;
+
+  line-height: 1.7;
+}
+
+
+/* area principale */
+
+#familyTree {
+  margin-top: 30px;
+
+  min-height: 600px;
+
+  padding: 60px 30px;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #345638,
+      #18291d 55%,
+      #0b130d
+    );
+
+  border:
+    2px solid #697650;
+
+  box-shadow:
+    inset 0 0 80px #000;
+
+  border-radius: 6px;
+}
+
+
+/* titoli delle casate */
+
+.tree-title {
+  margin:
+    60px 0 35px;
+
+  text-align: center;
+
+  color: #d0c795;
+
+  font:
+    600 25px "Cinzel",
+    serif;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+}
+
+
+.tree-title:first-child {
+  margin-top: 0;
+}
+
+
+/* famiglia */
+
+.family {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  margin:
+    0 auto 60px;
+
+  width: max-content;
+
+  min-width: 400px;
+}
+
+
+/* coppia */
+
+.couple {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+}
+
+
+/* simbolo matrimonio */
+
+.marriage-symbol {
+  color: #c9b66d;
+
+  font-size: 22px;
+
+  text-shadow:
+    0 0 10px #000;
+}
+
+
+/* persona */
+
+.tree-person {
+  min-width: 145px;
+
+  padding: 14px 18px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #493523,
+      #302416
+    );
+
+  border:
+    2px solid #765632;
+
+  border-radius: 8px;
+
+  color: #e3d7ad;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 20px #0009;
+
+  transition:
+    .2s;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+.tree-person:hover {
+  background:
+    linear-gradient(
+      145deg,
+      #65492b,
+      #44301c
+    );
+
+  transform:
+    translateY(-4px)
+    scale(1.04);
+
+  border-color:
+    #b08a50;
+}
+
+
+.tree-name {
+  font:
+    600 16px "Cinzel",
+    serif;
+
+  margin-bottom: 7px;
+}
+
+
+/* =========================================================
+   FIGLI
+   ========================================================= */
+
+.children-connector {
+  width: 2px;
+
+  height: 35px;
+
+  background:
+    #a18b58;
+
+  position: relative;
+}
+
+
+.children {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-start;
+
+  gap: 25px;
+
+  padding-top: 0;
+
+  position: relative;
+}
+
+
+/* linea orizzontale sopra i figli */
+
+.children::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: 10%;
+
+  right: 10%;
+
+  height: 2px;
+
+  background:
+    #a18b58;
+}
+
+
+/* ogni figlio */
+
+.child {
+  position: relative;
+
+  padding-top: 28px;
+}
+
+
+/* linea verticale verso ogni figlio */
+
+.vertical-line {
+  position: absolute;
+
+  top: 0;
+
+  left: 50%;
+
+  width: 2px;
+
+  height: 28px;
+
+  background:
+    #a18b58;
+
+  transform:
+    translateX(-50%);
+}
+
+
+/* =========================================================
+   FAMIGLIE SENZA MATRIMONIO
+   ========================================================= */
+
+.standalone-family {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 0;
+}
+
+
+/* =========================================================
+   LEGGENDA
+   ========================================================= */
+
+.legend {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 20px;
+
+  margin:
+    20px 0 25px;
+
+  padding: 15px;
+
+  background:
+    #101a13;
+
+  border:
+    1px solid #4f5e43;
+
+  border-radius: 4px;
+}
+
+
+.legend-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 12px;
+
+  color: #bcb99f;
+}
+
+
+.legend-line {
+  display: inline-block;
+
+  width: 35px;
+
+  height: 3px;
+
+  background: #a18b58;
+}
+
+
+.legend-line.marriage {
+  background: #c9b66d;
+}
+
+
+.legend-line.adoption {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #a66a49 0,
+      #a66a49 6px,
+      transparent 6px,
+      transparent 11px
+    );
+}
+
+
+/* =========================================================
+   COLLEGAMENTO DELLE CASATE
+   ========================================================= */
+
+.family-bridge {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin:
+    30px auto 50px;
+
+  color: #c9b66d;
+
+  text-align: center;
+}
+
+
+.bridge-line {
+  height: 70px;
+
+  width: 2px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #a18b58,
+      #c9b66d
+    );
+}
+
+
+.bridge-text {
+  padding:
+    10px 18px;
+
+  border:
+    1px solid #75643c;
+
+  background:
+    #171b11;
+
+  font:
+    600 12px "Cinzel",
+    serif;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   ADOZIONE
+   ========================================================= */
+
+.adoption-panel {
+  max-width: 700px;
+
+  margin:
+    70px auto 20px;
+
+  padding: 25px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #241c18,
+      #151510
+    );
+
+  border:
+    1px dashed #a66a49;
+
+  text-align: center;
+
+  box-shadow:
+    0 10px 30px #0008;
+}
+
+
+.adoption-title {
+  color: #c38b69;
+
+  font:
+    600 18px "Cinzel",
+    serif;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 20px;
+}
+
+
+.adoption-content {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 25px;
+}
+
+
+.adoption-person {
+  padding: 12px 20px;
+
+  border:
+    1px solid #765632;
+
+  background:
+    #302416;
+
+  font-family:
+    "Cinzel",
+    serif;
+}
+
+
+.adoption-person span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #a99d91;
+
+  font:
+    11px "Libre Baskerville",
+    serif;
+}
+
+
+.adoption-arrow {
+  color: #c38b69;
+
+  font-size: 28px;
+}
+
+
+.adoption-panel p {
+  margin-bottom: 0;
+
+  color: #999681;
+
+  font-size: 12px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width: 700px) {
+
   header h1 {
     font-size: 27px;
+
     letter-spacing: 4px;
   }
+
+
+  main {
+    padding: 12px;
+  }
+
 
   .paper {
     padding: 25px;
   }
+
+
+  #familyTree {
+    padding:
+      45px 15px;
+  }
+
+
+  .family {
+    min-width: 350px;
+  }
+
+
+  .children {
+    gap: 12px;
+  }
+
+
+  .tree-person {
+    min-width: 120px;
+
+    padding:
+      12px 8px;
+  }
+
+
+  .tree-name {
+    font-size: 13px;
+  }
+
+
+  .adoption-content {
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
 }
