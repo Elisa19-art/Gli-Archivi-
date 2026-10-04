@@ -2,73 +2,58 @@
 <html lang="it">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Archivio</title>
-
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <header>
-
 <h1>ARCHIVIO</h1>
-
 <p>Archivio storico — Accesso autorizzato</p>
-
 </header>
-
 
 <main>
 
-<!-- MENU -->
-
 <nav class="menu">
-
-<button onclick="showArchive()">
-DOCUMENTI
-</button>
-
-<button onclick="showCharacters()">
-PERSONAGGI
-</button>
-
-<button onclick="showTree()">
-🌳 GENEALOGIA
-</button>
-
+<button onclick="showArchive()">📜 DOCUMENTI</button>
+<button onclick="showCharacters()">👤 PERSONAGGI</button>
+<button onclick="showTree()">🌳 GENEALOGIA</button>
+<button onclick="showNotes()">📝 NOTE</button>
+<button onclick="showSolve()">🔐 SOLUZIONE</button>
 </nav>
-
-
-
-<!-- ARCHIVIO -->
 
 <section id="archive">
 
-<input
-id="search"
+<input id="search"
 class="search"
-type="text"
-placeholder="Cerca documenti..."
->
+placeholder="Cerca nome, parola chiave, documento o data...">
 
-<section id="documents"></section>
+<div id="documents"></div>
 
 </section>
 
 
-<!-- PERSONAGGI -->
+<section id="viewer" style="display:none">
 
-<section id="charactersSection"
-style="display:none">
+<div class="actions">
+<button onclick="showArchive()">← Archivio</button>
+<button onclick="toggleImportant()">⭐ Importante</button>
+</div>
+
+<div class="paper">
+<h2 id="viewerTitle"></h2>
+<p id="viewerDate"></p>
+<hr>
+<div id="viewerText"></div>
+</div>
+
+</section>
 
 
+<section id="charactersSection" style="display:none">
 
 <h2>PERSONAGGI</h2>
 
@@ -77,50 +62,11 @@ style="display:none">
 </section>
 
 
-<!-- GENEALOGIA -->
+<section id="characterViewer" style="display:none">
 
-<section id="treeSection" style="display:none">
+<button onclick="showCharacters()">← Personaggi</button>
 
-<h2>ALBERO GENEALOGICO</h2>
-
-<p class="tree-intro">
-Ricostruisci la storia della famiglia.
-Ogni ramo rappresenta una generazione.
-</p>
-
-<div id="familyTree"></div>
-
-</section>
-
-
-
-<!-- DOCUMENTO -->
-
-<section id="viewer">
-
-<button onclick="closeDocument()">
-← Torna all'archivio
-</button>
-
-<h2 id="viewerTitle"></h2>
-
-<p id="viewerDate"></p>
-
-<hr>
-
-<div id="viewerText"></div>
-
-</section>
-
-
-<!-- PERSONAGGIO -->
-
-<section id="characterViewer"
-style="display:none">
-
-<button onclick="showCharacters()">
-← Torna ai personaggi
-</button>
+<div class="paper">
 
 <h2 id="characterName"></h2>
 
@@ -132,205 +78,292 @@ style="display:none">
 
 <p id="characterBiography"></p>
 
+<h3>RELazioni</h3>
+
+<div id="characterRelations"></div>
+
 <h3>DOCUMENTI COLLEGATI</h3>
 
 <div id="characterDocuments"></div>
+
+</div>
+
+</section>
+
+
+<section id="treeSection" style="display:none">
+
+<h2>🌳 ALBERO GENEALOGICO</h2>
+
+<p>La genealogia viene costruita automaticamente dai dati dei personaggi.</p>
+
+<div id="familyTree"></div>
+
+</section>
+
+
+<section id="notesSection" style="display:none">
+
+<h2>📝 NOTE PERSONALI</h2>
+
+<textarea
+id="notes"
+class="note"
+placeholder="Scrivi qui i tuoi appunti..."></textarea>
+
+</section>
+
+
+<section id="solveSection" style="display:none">
+
+<div class="paper">
+
+<h2>🔐 RISOLVI IL CASO</h2>
+
+<p>Quando pensi di aver capito il mistero, inserisci la tua risposta.</p>
+
+<textarea
+id="solution"
+class="note"
+placeholder="La mia soluzione..."></textarea>
+
+<br><br>
+
+<button onclick="solveCase()">CONFERMA SOLUZIONE</button>
+
+<p id="solveResult"></p>
+
+</div>
 
 </section>
 
 </main>
 
-
 <script src="data.js"></script>
-
 
 <script>
 
-const documentList =
-document.getElementById("documents");
+let currentDocument = null;
+
+let important = JSON.parse(
+localStorage.getItem("important") || "[]"
+);
 
 const search =
 document.getElementById("search");
 
-const charactersList =
-document.getElementById("characters");
+const docsContainer =
+document.getElementById("documents");
 
+function hideAll() {
 
-/* DOCUMENTI */
+[
+"archive",
+"viewer",
+"charactersSection",
+"characterViewer",
+"treeSection",
+"notesSection",
+"solveSection"
+].forEach(id => {
 
-function showDocuments(list) {
-
-documentList.innerHTML = "";
-
-list.forEach((doc) => {
-
-const element =
-document.createElement("div");
-
-element.className = "document";
-
-element.innerHTML = `
-
-<h2>${doc.title}</h2>
-
-<div class="date">
-${doc.date}
-</div>
-
-`;
-
-element.onclick =
-() => openDocument(doc);
-
-documentList.appendChild(element);
+document.getElementById(id).style.display = "none";
 
 });
 
 }
-
-
-/* APRI DOCUMENTO */
-
-function openDocument(doc) {
-
-document.getElementById("archive")
-.style.display = "none";
-
-document.getElementById("charactersSection")
-.style.display = "none";
-
-document.getElementById("viewer")
-.style.display = "block";
-
-document.getElementById("characterViewer")
-.style.display = "none";
-
-document.getElementById("viewerTitle")
-.textContent = doc.title;
-
-document.getElementById("viewerDate")
-.textContent = doc.date;
-
-document.getElementById("viewerText")
-.textContent = doc.text;
-
-}
-
-
-/* CHIUDI DOCUMENTO */
-
-function closeDocument() {
-
-showArchive();
-
-}
-
-
-/* ARCHIVIO */
 
 function showArchive() {
 
-document.getElementById("archive")
-.style.display = "block";
+hideAll();
 
-document.getElementById("charactersSection")
-.style.display = "none";
+document.getElementById("archive").style.display = "block";
 
-document.getElementById("viewer")
-.style.display = "none";
-
-document.getElementById("characterViewer")
-.style.display = "none";
-  
-document.getElementById("treeSection")
-.style.display = "none";
+renderDocuments(documents);
 
 }
 
+function renderDocuments(list) {
 
-/* PERSONAGGI */
+docsContainer.innerHTML = "";
+
+list.forEach(doc => {
+
+const el = document.createElement("div");
+
+el.className = "document";
+
+el.innerHTML = `
+<h2>${doc.title}</h2>
+<div class="date">${doc.date}</div>
+`;
+
+el.onclick = () => openDocument(doc);
+
+docsContainer.appendChild(el);
+
+});
+
+}
+
+function openDocument(doc) {
+
+currentDocument = doc;
+
+hideAll();
+
+document.getElementById("viewer").style.display = "block";
+
+document.getElementById("viewerTitle").textContent =
+doc.title;
+
+document.getElementById("viewerDate").textContent =
+doc.date;
+
+document.getElementById("viewerText").textContent =
+doc.text;
+
+}
+
+function toggleImportant() {
+
+if (!currentDocument) return;
+
+if (important.includes(currentDocument.id)) {
+
+important =
+important.filter(id => id !== currentDocument.id);
+
+} else {
+
+important.push(currentDocument.id);
+
+}
+
+localStorage.setItem(
+"important",
+JSON.stringify(important)
+);
+
+alert("Stato del documento aggiornato.");
+
+}
+
+search.addEventListener("input", () => {
+
+const q = search.value.toLowerCase();
+
+const result = documents.filter(doc =>
+
+doc.title.toLowerCase().includes(q) ||
+doc.text.toLowerCase().includes(q) ||
+doc.date.toLowerCase().includes(q) ||
+doc.keywords.join(" ").toLowerCase().includes(q) ||
+doc.characters.some(id => {
+
+const c = characters.find(x => x.id === id);
+
+return c &&
+c.name.toLowerCase().includes(q);
+
+})
+
+);
+
+renderDocuments(result);
+
+});
+
 
 function showCharacters() {
 
-document.getElementById("archive")
-.style.display = "none";
-
-document.getElementById("viewer")
-.style.display = "none";
-
-document.getElementById("characterViewer")
-.style.display = "none";
-  
-document.getElementById("treeSection")
-.style.display = "none";
+hideAll();
 
 document.getElementById("charactersSection")
 .style.display = "block";
 
-charactersList.innerHTML = "";
+const container =
+document.getElementById("characters");
 
-characters.forEach((character) => {
+container.innerHTML = "";
 
-const element =
+characters.forEach(character => {
+
+const el =
 document.createElement("div");
 
-element.className = "document";
+el.className = "document";
 
-element.innerHTML = `
-
+el.innerHTML = `
 <h2>${character.name}</h2>
-
 <div class="date">
 ${character.birth || "Data sconosciuta"}
 </div>
-
 `;
 
-element.onclick =
-() => openCharacter(character);
+el.onclick = () =>
+openCharacter(character);
 
-charactersList.appendChild(element);
+container.appendChild(el);
 
 });
 
 }
 
 
-/* APRI PERSONAGGIO */
-
 function openCharacter(character) {
 
-document.getElementById("archive")
-.style.display = "none";
-
-document.getElementById("charactersSection")
-.style.display = "none";
-
-document.getElementById("viewer")
-.style.display = "none";
+hideAll();
 
 document.getElementById("characterViewer")
 .style.display = "block";
 
-
 document.getElementById("characterName")
-.textContent =
-character.name;
-
+.textContent = character.name;
 
 document.getElementById("characterDates")
 .textContent =
-
 "Nascita: " +
 (character.birth || "sconosciuta") +
-
 " • Morte: " +
 (character.death || "sconosciuta");
-
 
 document.getElementById("characterBiography")
 .textContent =
 character.biography;
+
+const relations =
+document.getElementById("characterRelations");
+
+relations.innerHTML = "";
+
+[
+["Padre", character.father],
+["Madre", character.mother],
+["Coniuge", character.spouse]
+].forEach(([label,id]) => {
+
+if (!id) return;
+
+const person =
+characters.find(c => c.id === id);
+
+if (!person) return;
+
+const el =
+document.createElement("div");
+
+el.className = "stat";
+
+el.textContent =
+label + ": " + person.name;
+
+el.onclick = () =>
+openCharacter(person);
+
+relations.appendChild(el);
+
+});
 
 
 const docs =
@@ -338,137 +371,187 @@ document.getElementById("characterDocuments");
 
 docs.innerHTML = "";
 
-
-character.documents.forEach((id) => {
+character.documents.forEach(id => {
 
 const doc =
 documents.find(d => d.id === id);
 
 if (!doc) return;
 
-const element =
+const el =
 document.createElement("div");
 
-element.className = "document";
+el.className = "document";
 
-element.innerHTML = `
+el.innerHTML =
+`<h2>${doc.title}</h2>
+<div class="date">${doc.date}</div>`;
 
-<h2>${doc.title}</h2>
+el.onclick = () =>
+openDocument(doc);
 
-<div class="date">
-${doc.date}
-</div>
-
-`;
-
-element.onclick =
-() => openDocument(doc);
-
-docs.appendChild(element);
+docs.appendChild(el);
 
 });
 
 }
 
 
-/* RICERCA */
-
-search.addEventListener(
-"input",
-() => {
-
-const query =
-search.value.toLowerCase();
-
-const filtered =
-documents.filter(doc =>
-
-doc.title
-.toLowerCase()
-.includes(query)
-
-||
-
-doc.text
-.toLowerCase()
-.includes(query)
-
-||
-
-doc.date
-.toLowerCase()
-.includes(query)
-
-||
-
-doc.characters
-.join(" ")
-.toLowerCase()
-.includes(query)
-
-||
-
-doc.keywords
-.join(" ")
-.toLowerCase()
-.includes(query)
-
-);
-
-showDocuments(filtered);
-
-});
-
 function showTree() {
 
-document.getElementById("archive")
-.style.display = "none";
-
-document.getElementById("charactersSection")
-.style.display = "none";
-
-document.getElementById("viewer")
-.style.display = "none";
-
-document.getElementById("characterViewer")
-.style.display = "none";
+hideAll();
 
 document.getElementById("treeSection")
 .style.display = "block";
 
+buildTree();
+
+}
+
+
+function buildTree() {
 
 const tree =
 document.getElementById("familyTree");
 
 tree.innerHTML = "";
 
+const roots =
+characters.filter(c =>
+!c.father && !c.mother
+);
 
-characters.forEach((character) => {
+const generations = [];
 
-const person =
+function addGeneration(list, level) {
+
+if (!list.length) return;
+
+if (!generations[level])
+generations[level] = [];
+
+list.forEach(person => {
+
+if (!generations[level].includes(person))
+generations[level].push(person);
+
+});
+
+const children = [];
+
+list.forEach(parent => {
+
+characters.forEach(child => {
+
+if (
+child.father === parent.id ||
+child.mother === parent.id
+) {
+
+if (!children.includes(child))
+children.push(child);
+
+}
+
+});
+
+});
+
+addGeneration(children, level + 1);
+
+}
+
+addGeneration(roots, 0);
+
+generations.forEach(level => {
+
+const row =
 document.createElement("div");
 
-person.className = "tree-branch";
+row.className = "tree-level";
 
-person.textContent =
-character.name;
+level.forEach(person => {
 
-person.onclick =
-() => openCharacter(character);
+const el =
+document.createElement("div");
 
-tree.appendChild(person);
+el.className = "tree-person";
+
+el.textContent =
+person.name;
+
+el.onclick = () =>
+openCharacter(person);
+
+row.appendChild(el);
+
+});
+
+tree.appendChild(row);
 
 });
 
 }
 
 
-/* AVVIO */
+function showNotes() {
 
-showDocuments(documents);
+hideAll();
+
+document.getElementById("notesSection")
+.style.display = "block";
+
+document.getElementById("notes").value =
+localStorage.getItem("notes") || "";
+
+}
+
+
+document
+.getElementById("notes")
+.addEventListener("input", e => {
+
+localStorage.setItem(
+"notes",
+e.target.value
+);
+
+});
+
+
+function showSolve() {
+
+hideAll();
+
+document.getElementById("solveSection")
+.style.display = "block";
+
+document.getElementById("solution").value =
+localStorage.getItem("solution") || "";
+
+}
+
+
+function solveCase() {
+
+const answer =
+document.getElementById("solution").value;
+
+localStorage.setItem(
+"solution",
+answer
+);
+
+document.getElementById("solveResult")
+.textContent =
+"Risposta registrata. Il caso è stato segnato come risolto.";
+
+}
+
+
+showArchive();
 
 </script>
 
 </body>
-
 </html>
