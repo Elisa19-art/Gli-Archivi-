@@ -88,29 +88,7 @@ Ricostruisci la storia della famiglia.
 Ogni ramo rappresenta una generazione.
 </p>
 
-<div id="familyTree">
-
-<div class="tree-trunk">
-
-<div class="tree-root">
-CHARACTER A
-</div>
-
-<div class="tree-branches">
-
-<div class="tree-branch">
-CHARACTER B
-</div>
-
-<div class="tree-branch">
-CHARACTER C
-</div>
-
-</div>
-
-</div>
-
-</div>
+<div id="familyTree"></div>
 
 </section>
 
@@ -458,7 +436,32 @@ document.getElementById("characterViewer")
 document.getElementById("treeSection")
 .style.display = "block";
 
+
+const tree =
+document.getElementById("familyTree");
+
+tree.innerHTML = "";
+
+
+characters.forEach((character) => {
+
+const person =
+document.createElement("div");
+
+person.className = "tree-branch";
+
+person.textContent =
+character.name;
+
+person.onclick =
+() => openCharacter(character);
+
+tree.appendChild(person);
+
+});
+
 }
+
 
 /* AVVIO */
 
