@@ -1,31 +1,4 @@
-<!DOCTYPE html>
-<html lang="it">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Archivio</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<header>
-
-<h1>ARCHIVIO</h1>
-
-<p>Archivio storico — Accesso autorizzato</p>
-
-</header>
-
-
-<main>
-
-<nav class="menu">
-
+<!DOCTYPE html> <html lang="it"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Archivio</title> <link rel="stylesheet" href="style.css"> </head> <body> <header> <h1>ARCHIVIO</h1> <p>Archivio storico — Accesso autorizzato</p> </header> <main> <nav class="menu">
 <button onclick="showArchive()">📜 DOCUMENTI</button>
 
 <button onclick="showCharacters()">👤 PERSONAGGI</button>
@@ -36,184 +9,41 @@
 
 <button onclick="showSolve()">🔐 SOLUZIONE</button>
 
-</nav>
-
-
-<!-- ================= DOCUMENTI ================= -->
-
-<section id="archive">
-
+</nav> <!-- ===================================================== DOCUMENTI ===================================================== --> <section id="archive">
 <input
 id="search"
 class="search"
 placeholder="Cerca nome, parola chiave, documento o data..."
->
 
-<div id="documents"></div>
-
-</section>
-
-
-<!-- ================= VISUALIZZATORE DOCUMENTO ================= -->
-
-<section id="viewer" style="display:none">
-
-<div class="actions">
-
+<div id="documents"></div> </section> <!-- ===================================================== VISUALIZZATORE DOCUMENTO ===================================================== --> <section id="viewer" style="display:none"> <div class="actions">
 <button onclick="showArchive()">← Archivio</button>
-
 <button onclick="toggleImportant()">⭐ Importante</button>
 
-</div>
-
-<div class="paper">
-
-<h2 id="viewerTitle"></h2>
-
-<p id="viewerDate"></p>
-
-<hr>
-
-<div id="viewerText"></div>
-
-</div>
-
-</section>
-
-
-<!-- ================= PERSONAGGI ================= -->
-
-<section id="charactersSection" style="display:none">
-
-<h2>PERSONAGGI</h2>
-
-<div id="characters"></div>
-
-</section>
-
-
-<!-- ================= SCHEDA PERSONAGGIO ================= -->
-
-<section id="characterViewer" style="display:none">
-
-<button onclick="showCharacters()">← Personaggi</button>
-
-<div class="paper">
-
-<h2 id="characterName"></h2>
-
-<div id="characterPower"></div>
-
-<p id="characterDates"></p>
-
-<hr>
-
-<h3>Biografia</h3>
-
-<p id="characterBiography"></p>
-
-<h3>RELAZIONI</h3>
-
-<div id="characterRelations"></div>
-
-<h3>DOCUMENTI COLLEGATI</h3>
-
-<div id="characterDocuments"></div>
-
-</div>
-
-</section>
-
-
-<!-- ================= ALBERO ================= -->
-
-<section id="treeSection" style="display:none">
-
-<h2>🌳 ALBERO GENEALOGICO</h2>
-
-<p class="tree-intro">
-Le linee genealogiche delle casate conosciute.
-I collegamenti biologici e adottivi sono distinti.
-</p>
-
-<div class="legend">
-
-<span class="legend-item">
-<span class="legend-line biological"></span>
-Discendenza biologica
-</span>
-
-<span class="legend-item">
-<span class="legend-line marriage"></span>
-Matrimonio
-</span>
-
-<span class="legend-item">
-<span class="legend-line adoption"></span>
-Adozione
-</span>
-
-</div>
-
-
-<div id="familyTree"></div>
-
-</section>
-
-
-<!-- ================= NOTE ================= -->
-
-<section id="notesSection" style="display:none">
-
-<h2>📝 NOTE PERSONALI</h2>
-
-<textarea
-id="notes"
-class="note"
-placeholder="Scrivi qui i tuoi appunti..."
-></textarea>
-
-</section>
-
-
-<!-- ================= SOLUZIONE ================= -->
-
-<section id="solveSection" style="display:none">
-
-<div class="paper">
-
-<h2>🔐 RISOLVI IL CASO</h2>
-
-<p>
-Quando pensi di aver capito il mistero,
-inserisci la tua risposta.
-</p>
-
-<textarea
-id="solution"
-class="note"
-placeholder="La mia soluzione..."
-></textarea>
-
+</div> <div class="paper"> <h2 id="viewerTitle"></h2> <p id="viewerDate"></p> <hr> <div id="viewerText"></div> </div> </section> <!-- ===================================================== PERSONAGGI ===================================================== --> <section id="charactersSection" style="display:none"> <h2>👤 PERSONAGGI</h2> <div id="characters"></div> </section> <!-- ===================================================== SCHEDA PERSONAGGIO ===================================================== --> <section id="characterViewer" style="display:none"> <button onclick="showCharacters()"> ← Personaggi </button>
 <br><br>
 
-<button onclick="solveCase()">
-CONFERMA SOLUZIONE
-</button>
+<div class="paper"> <h2 id="characterName"></h2> <div id="characterPower"></div> <p id="characterDates"></p> <hr> <h3>BIOGRAFIA</h3> <p id="characterBiography"></p> <h3>RELAZIONI</h3> <div id="characterRelations"></div> <h3>DOCUMENTI COLLEGATI</h3> <div id="characterDocuments"></div> </div> </section> <!-- ===================================================== ALBERO GENEALOGICO ===================================================== --> <section id="treeSection" style="display:none"> <h2>🌳 ALBERO GENEALOGICO</h2> <p class="tree-intro"> Le linee genealogiche delle casate conosciute. I collegamenti biologici, matrimoniali e adottivi sono distinti. </p> <div class="legend"> <span class="legend-item">
+<span class="legend-line biological"></span>
 
-<p id="solveResult"></p>
+Discendenza biologica
 
-</div>
+</span> <span class="legend-item">
+<span class="legend-line marriage"></span>
 
-</section>
+Matrimonio
 
-</main>
+</span> <span class="legend-item">
+<span class="legend-line adoption"></span>
 
+Adozione
 
-<script src="data.js"></script>
+</span> </div> <div id="familyTree"></div> </section> <!-- ===================================================== NOTE ===================================================== --> <section id="notesSection" style="display:none"> <h2>📝 NOTE PERSONALI</h2> <textarea id="notes" class="note" placeholder="Scrivi qui i tuoi appunti..." ></textarea> </section> <!-- ===================================================== SOLUZIONE ===================================================== --> <section id="solveSection" style="display:none"> <div class="paper"> <h2>🔐 RISOLVI IL CASO</h2> <p> Quando pensi di aver capito il mistero, inserisci la tua risposta. </p> <textarea id="solution" class="note" placeholder="La mia soluzione..." ></textarea>
+<br><br>
 
-
-<script>
+<button onclick="solveCase()"> CONFERMA SOLUZIONE </button> <p id="solveResult"></p> </div> </section> </main> <!-- ===================================================== DATA ===================================================== --> <script src="data.js"></script> <script>
+/* =====================================================
+VARIABILI
+===================================================== */
 
 let currentDocument = null;
 
@@ -221,21 +51,19 @@ let important = JSON.parse(
 localStorage.getItem("important") || "[]"
 );
 
-
 const search =
 document.getElementById("search");
 
 const docsContainer =
 document.getElementById("documents");
 
-
-/* =========================================================
-   NAVIGAZIONE
-   ========================================================= */
+/* =====================================================
+NAVIGAZIONE
+===================================================== */
 
 function hideAll() {
 
-[
+const sections = [
 "archive",
 "viewer",
 "charactersSection",
@@ -243,30 +71,35 @@ function hideAll() {
 "treeSection",
 "notesSection",
 "solveSection"
+];
 
-].forEach(id => {
+sections.forEach(id => {
 
-document.getElementById(id).style.display = "none";
+const section =
+document.getElementById(id);
+
+if (section) {
+section.style.display = "none";
+}
 
 });
 
 }
 
-
-/* =========================================================
-   DOCUMENTI
-   ========================================================= */
+/* =====================================================
+DOCUMENTI
+===================================================== */
 
 function showArchive() {
 
 hideAll();
 
-document.getElementById("archive").style.display = "block";
+document.getElementById("archive")
+.style.display = "block";
 
 renderDocuments(documents);
 
 }
-
 
 function renderDocuments(list) {
 
@@ -281,12 +114,7 @@ el.className = "document";
 
 el.innerHTML = `
 
-<h2>${doc.title}</h2>
-
-<div class="date">
-${doc.date}
-</div>
-
+<h2>${doc.title}</h2> <div class="date"> ${doc.date} </div>
 `;
 
 el.onclick = () =>
@@ -297,7 +125,6 @@ docsContainer.appendChild(el);
 });
 
 }
-
 
 function openDocument(doc) {
 
@@ -319,11 +146,9 @@ document.getElementById("viewerText")
 
 }
 
-
 function toggleImportant() {
 
-if (!currentDocument)
-return;
+if (!currentDocument) return;
 
 if (important.includes(currentDocument.id)) {
 
@@ -347,6 +172,9 @@ alert("Stato del documento aggiornato.");
 
 }
 
+/* =====================================================
+RICERCA
+===================================================== */
 
 search.addEventListener("input", () => {
 
@@ -354,28 +182,38 @@ const q =
 search.value.toLowerCase();
 
 const result =
-documents.filter(doc =>
+documents.filter(doc => {
 
-doc.title.toLowerCase().includes(q) ||
+const title =
+(doc.title || "").toLowerCase();
 
-doc.text.toLowerCase().includes(q) ||
+const text =
+(doc.text || "").toLowerCase();
 
-doc.date.toLowerCase().includes(q) ||
+const date =
+(doc.date || "").toLowerCase();
 
-doc.keywords.join(" ")
-.toLowerCase()
-.includes(q)
+const keywords =
+(doc.keywords || [])
+.join(" ")
+.toLowerCase();
 
+return (
+title.includes(q) ||
+text.includes(q) ||
+date.includes(q) ||
+keywords.includes(q)
 );
+
+});
 
 renderDocuments(result);
 
 });
 
-
-/* =========================================================
-   PERSONAGGI
-   ========================================================= */
+/* =====================================================
+PERSONAGGI
+===================================================== */
 
 function showCharacters() {
 
@@ -384,12 +222,10 @@ hideAll();
 document.getElementById("charactersSection")
 .style.display = "block";
 
-
 const container =
 document.getElementById("characters");
 
 container.innerHTML = "";
-
 
 characters.forEach(character => {
 
@@ -399,14 +235,17 @@ document.createElement("div");
 el.className =
 "document character-card";
 
+const power =
+character.power || "Sconosciuta";
+
+const powerClass =
+power
+.toLowerCase()
+.replaceAll(" ", "-");
+
 el.innerHTML = `
 
-<h2>${character.name}</h2>
-
-<div class="power power-${character.power.toLowerCase()}">
-${character.power}
-</div>
-
+<h2>${character.name}</h2> <div class="power power-${powerClass}"> ${power} </div>
 `;
 
 el.onclick = () =>
@@ -418,6 +257,9 @@ container.appendChild(el);
 
 }
 
+/* =====================================================
+SCHEDA PERSONAGGIO
+===================================================== */
 
 function openCharacter(character) {
 
@@ -426,21 +268,23 @@ hideAll();
 document.getElementById("characterViewer")
 .style.display = "block";
 
-
 document.getElementById("characterName")
 .textContent =
 character.name;
 
+const power =
+character.power || "Sconosciuta";
+
+const powerClass =
+power
+.toLowerCase()
+.replaceAll(" ", "-");
 
 document.getElementById("characterPower")
-innerHTML = `
+.innerHTML = `
 
-<span class="power power-${character.power.toLowerCase()}">
-Linea: ${character.power}
-</span>
-
+<span class="power power-${powerClass}"> Linea: ${power} </span>
 `;
-
 
 document.getElementById("characterDates")
 .textContent =
@@ -449,19 +293,18 @@ document.getElementById("characterDates")
 " • Morte: " +
 (character.death || "sconosciuta");
 
-
 document.getElementById("characterBiography")
 .textContent =
-character.biography;
+character.biography || "Nessuna biografia disponibile.";
 
-
-/* RELAZIONI */
+/* =====================================================
+RELAZIONI
+===================================================== */
 
 const relations =
 document.getElementById("characterRelations");
 
 relations.innerHTML = "";
-
 
 if (character.father) {
 
@@ -473,7 +316,6 @@ character.father
 
 }
 
-
 if (character.mother) {
 
 addRelation(
@@ -483,7 +325,6 @@ character.mother
 );
 
 }
-
 
 if (character.spouse) {
 
@@ -495,7 +336,6 @@ character.spouse
 
 }
 
-
 if (character.adoptedBy) {
 
 addRelation(
@@ -505,7 +345,6 @@ character.adoptedBy
 );
 
 }
-
 
 if (
 character.adopts &&
@@ -524,14 +363,14 @@ id
 
 }
 
-
-/* DOCUMENTI */
+/* =====================================================
+DOCUMENTI DEL PERSONAGGIO
+===================================================== */
 
 const docs =
 document.getElementById("characterDocuments");
 
 docs.innerHTML = "";
-
 
 (character.documents || []).forEach(id => {
 
@@ -540,9 +379,7 @@ documents.find(
 d => d.id === id
 );
 
-if (!doc)
-return;
-
+if (!doc) return;
 
 const el =
 document.createElement("div");
@@ -551,12 +388,7 @@ el.className = "document";
 
 el.innerHTML = `
 
-<h2>${doc.title}</h2>
-
-<div class="date">
-${doc.date}
-</div>
-
+<h2>${doc.title}</h2> <div class="date"> ${doc.date} </div>
 `;
 
 el.onclick = () =>
@@ -568,6 +400,9 @@ docs.appendChild(el);
 
 }
 
+/* =====================================================
+RELAZIONE
+===================================================== */
 
 function addRelation(container, label, id) {
 
@@ -576,9 +411,7 @@ characters.find(
 c => c.id === id
 );
 
-if (!person)
-return;
-
+if (!person) return;
 
 const el =
 document.createElement("div");
@@ -586,15 +419,15 @@ document.createElement("div");
 el.className =
 "stat relation";
 
+const power =
+person.power || "Sconosciuta";
+
 el.innerHTML = `
 
 <strong>${label}:</strong>
 ${person.name}
 
-<span class="small-power">
-${person.power}
-</span>
-
+<span class="small-power"> ${power} </span>
 `;
 
 el.onclick = () =>
@@ -604,10 +437,9 @@ container.appendChild(el);
 
 }
 
-
-/* =========================================================
-   GENEALOGIA
-   ========================================================= */
+/* =====================================================
+GENEALOGIA
+===================================================== */
 
 function showTree() {
 
@@ -620,10 +452,9 @@ buildTree();
 
 }
 
-
-/*
-   Creazione di una persona
-*/
+/* =====================================================
+NODO PERSONAGGIO
+===================================================== */
 
 function createPersonNode(id) {
 
@@ -632,9 +463,20 @@ characters.find(
 c => c.id === id
 );
 
-if (!person)
-return null;
+if (!person) {
 
+const missing =
+document.createElement("div");
+
+missing.className =
+"tree-person missing";
+
+missing.textContent =
+"Personaggio non trovato";
+
+return missing;
+
+}
 
 const node =
 document.createElement("div");
@@ -642,32 +484,29 @@ document.createElement("div");
 node.className =
 "tree-person";
 
+const power =
+person.power || "Sconosciuta";
+
+const powerClass =
+power
+.toLowerCase()
+.replaceAll(" ", "-");
 
 node.innerHTML = `
 
-<div class="tree-name">
-${person.name}
-</div>
-
-<div class="tree-power power-${person.power.toLowerCase()}">
-${person.power}
-</div>
-
+<div class="tree-name"> ${person.name} </div> <div class="tree-power power-${powerClass}"> ${power} </div>
 `;
-
 
 node.onclick = () =>
 openCharacter(person);
-
 
 return node;
 
 }
 
-
-/*
-   Crea una coppia matrimoniale
-*/
+/* =====================================================
+COPPIA
+===================================================== */
 
 function createCouple(person1, person2) {
 
@@ -677,16 +516,13 @@ document.createElement("div");
 couple.className =
 "couple";
 
-
 const first =
 createPersonNode(person1);
 
 const second =
 createPersonNode(person2);
 
-
 couple.appendChild(first);
-
 
 const marriage =
 document.createElement("div");
@@ -697,20 +533,17 @@ marriage.className =
 marriage.textContent =
 "♥";
 
-
 couple.appendChild(marriage);
 
 couple.appendChild(second);
-
 
 return couple;
 
 }
 
-
-/*
-   Crea una famiglia
-*/
+/* =====================================================
+FAMIGLIA
+===================================================== */
 
 function createFamily(
 parent1,
@@ -724,18 +557,15 @@ document.createElement("div");
 family.className =
 "family";
 
-
 const couple =
 createCouple(
 parent1,
 parent2
 );
 
-
 family.appendChild(couple);
 
-
-if (children.length > 0) {
+if (children && children.length > 0) {
 
 const connector =
 document.createElement("div");
@@ -745,13 +575,11 @@ connector.className =
 
 family.appendChild(connector);
 
-
 const childrenContainer =
 document.createElement("div");
 
 childrenContainer.className =
 "children";
-
 
 children.forEach(child => {
 
@@ -761,13 +589,11 @@ document.createElement("div");
 childBox.className =
 "child";
 
-
 const line =
 document.createElement("div");
 
 line.className =
 "vertical-line";
-
 
 childBox.appendChild(line);
 
@@ -775,13 +601,11 @@ childBox.appendChild(
 createPersonNode(child)
 );
 
-
 childrenContainer.appendChild(
 childBox
 );
 
 });
-
 
 family.appendChild(
 childrenContainer
@@ -789,15 +613,13 @@ childrenContainer
 
 }
 
-
 return family;
 
 }
 
-
-/*
-   Albero completo
-*/
+/* =====================================================
+ALBERO COMPLETO
+===================================================== */
 
 function buildTree() {
 
@@ -806,10 +628,9 @@ document.getElementById("familyTree");
 
 tree.innerHTML = "";
 
-
-/* =========================================
-   FAMIGLIA DI MERLINO
-   ========================================= */
+/* =====================================================
+PRIMA CASATA
+===================================================== */
 
 const title1 =
 document.createElement("h3");
@@ -822,8 +643,7 @@ title1.textContent =
 
 tree.appendChild(title1);
 
-
-/* Merlino */
+/* Merlino + Belladonna */
 
 tree.appendChild(
 createFamily(
@@ -838,8 +658,7 @@ createFamily(
 )
 );
 
-
-/* Thalassia */
+/* Thalassia + Dagda */
 
 tree.appendChild(
 createFamily(
@@ -851,21 +670,19 @@ createFamily(
 )
 );
 
+/* Morozov + Valeda */
 
-/* Morozov */
-
-const morozovFamily =
+tree.appendChild(
 createFamily(
 "morozov",
 "valeda",
 [
 "armacus"
+]
+)
 );
 
-tree.appendChild(morozovFamily);
-
-
-/* Balthazar */
+/* Balthazar + Vespra */
 
 tree.appendChild(
 createFamily(
@@ -878,8 +695,7 @@ createFamily(
 )
 );
 
-
-/* Zenobia */
+/* Zenobia + Mamivaza */
 
 tree.appendChild(
 createFamily(
@@ -893,8 +709,7 @@ createFamily(
 )
 );
 
-
-/* Zaccaria */
+/* Zaccaria + Shei */
 
 tree.appendChild(
 createFamily(
@@ -906,10 +721,9 @@ createFamily(
 )
 );
 
-
-/* =========================================
-   COLLEGAMENTO TRA LE DUE CASATE
-   ========================================= */
+/* =====================================================
+COLLEGAMENTO
+===================================================== */
 
 const bridge =
 document.createElement("div");
@@ -919,21 +733,14 @@ bridge.className =
 
 bridge.innerHTML = `
 
-<div class="bridge-line"></div>
-
-<div class="bridge-text">
-Unione delle due casate
-</div>
-
+<div class="bridge-line"></div> <div class="bridge-text"> UNIONE DELLE DUE CASATE </div>
 `;
-
 
 tree.appendChild(bridge);
 
-
-/* =========================================
-   SECONDO ALBERO
-   ========================================= */
+/* =====================================================
+SECONDA CASATA
+===================================================== */
 
 const title2 =
 document.createElement("h3");
@@ -946,8 +753,7 @@ title2.textContent =
 
 tree.appendChild(title2);
 
-
-/* Thomas */
+/* Thomas + Lianna */
 
 tree.appendChild(
 createFamily(
@@ -959,7 +765,6 @@ createFamily(
 ]
 )
 );
-
 
 /* Xantos + Sycoraxa */
 
@@ -974,8 +779,7 @@ createFamily(
 )
 );
 
-
-/* Ciprian */
+/* Ciprian + Melli */
 
 tree.appendChild(
 createFamily(
@@ -989,8 +793,9 @@ createFamily(
 )
 );
 
-
-/* Ipapatoti */
+/* =====================================================
+IPAPAROTI
+===================================================== */
 
 const ipaparotiFamily =
 document.createElement("div");
@@ -998,18 +803,15 @@ document.createElement("div");
 ipaparotiFamily.className =
 "family standalone-family";
 
-
 ipaparotiFamily.appendChild(
 createPersonNode("ipaparoti")
 );
-
 
 const ipChildren =
 document.createElement("div");
 
 ipChildren.className =
 "children";
-
 
 ["tages", "wanrt"].forEach(id => {
 
@@ -1019,6 +821,14 @@ document.createElement("div");
 child.className =
 "child";
 
+const line =
+document.createElement("div");
+
+line.className =
+"vertical-line";
+
+child.appendChild(line);
+
 child.appendChild(
 createPersonNode(id)
 );
@@ -1026,7 +836,6 @@ createPersonNode(id)
 ipChildren.appendChild(child);
 
 });
-
 
 ipaparotiFamily.appendChild(
 ipChildren
@@ -1036,8 +845,9 @@ tree.appendChild(
 ipaparotiFamily
 );
 
-
-/* Wanrt + Ivain */
+/* =====================================================
+WANRT + IVAIN
+===================================================== */
 
 tree.appendChild(
 createFamily(
@@ -1049,8 +859,9 @@ createFamily(
 )
 );
 
-
-/* Nabu */
+/* =====================================================
+NABU + SEIAMUS
+===================================================== */
 
 const nabuFamily =
 document.createElement("div");
@@ -1062,10 +873,10 @@ nabuFamily.appendChild(
 createPersonNode("nabu")
 );
 
-const nabuLine =
+const nabuChildren =
 document.createElement("div");
 
-nabuLine.className =
+nabuChildren.className =
 "children";
 
 const seiamusChild =
@@ -1074,24 +885,35 @@ document.createElement("div");
 seiamusChild.className =
 "child";
 
+const seiamusLine =
+document.createElement("div");
+
+seiamusLine.className =
+"vertical-line";
+
+seiamusChild.appendChild(
+seiamusLine
+);
+
 seiamusChild.appendChild(
 createPersonNode("seiamus")
 );
 
-nabuLine.appendChild(
+nabuChildren.appendChild(
 seiamusChild
 );
 
 nabuFamily.appendChild(
-nabuLine
+nabuChildren
 );
 
 tree.appendChild(
-nabuFamily
+n volta dovrebbe aprirsi e mostrarti le due casate, iabuFamily
 );
 
-
-/* Armacus + Flaminia */
+/* =====================================================
+ARMACUS + FLAMINIA
+===================================================== */
 
 tree.appendChild(
 createFamily(
@@ -1103,8 +925,9 @@ createFamily(
 )
 );
 
-
-/* Alzacars + Seiamius */
+/* =====================================================
+ALZACARS + SEIAMUS
+===================================================== */
 
 tree.appendChild(
 createFamily(
@@ -1116,10 +939,9 @@ createFamily(
 )
 );
 
-
-/* =========================================
-   ADOZIONE
-   ========================================= */
+/* =====================================================
+ADOZIONE DI ARMACUS
+===================================================== */
 
 const adoption =
 document.createElement("div");
@@ -1127,38 +949,10 @@ document.createElement("div");
 adoption.className =
 "adoption-panel";
 
-
 adoption.innerHTML = `
 
-<div class="adoption-title">
-ADOZIONE
-</div>
-
-<div class="adoption-content">
-
-<div class="adoption-person">
-Armacus
-<span>Potente</span>
-</div>
-
-<div class="adoption-arrow">
-⇢
-</div>
-
-<div class="adoption-person">
-Kyzen
-<span>Umano</span>
-</div>
-
-</div>
-
-<p>
-Armacus è figlio biologico di Morozov e Valeda.
-Successivamente viene adottato da Kyzen.
-</p>
-
+<div class="adoption-title"> ADOZIONE </div> <div class="adoption-content"> <div class="adoption-person"> Armacus <span>Potente</span> </div> <div class="adoption-arrow"> ⇢ </div> <div class="adoption-person"> Kyzen <span>Umano</span> </div> </div> <p> Armacus è figlio biologico di Morozov e Valeda. Successivamente viene adottato da Kyzen. L'adozione non modifica la sua discendenza biologica. </p>
 `;
-
 
 tree.appendChild(
 adoption
@@ -1166,10 +960,9 @@ adoption
 
 }
 
-
-/* =========================================================
-   NOTE
-   ========================================================= */
+/* =====================================================
+NOTE
+===================================================== */
 
 function showNotes() {
 
@@ -1178,12 +971,10 @@ hideAll();
 document.getElementById("notesSection")
 .style.display = "block";
 
-
 document.getElementById("notes").value =
 localStorage.getItem("notes") || "";
 
 }
-
 
 document
 .getElementById("notes")
@@ -1199,10 +990,9 @@ e.target.value
 }
 );
 
-
-/* =========================================================
-   SOLUZIONE
-   ========================================================= */
+/* =====================================================
+SOLUZIONE
+===================================================== */
 
 function showSolve() {
 
@@ -1211,24 +1001,20 @@ hideAll();
 document.getElementById("solveSection")
 .style.display = "block";
 
-
 document.getElementById("solution").value =
 localStorage.getItem("solution") || "";
 
 }
-
 
 function solveCase() {
 
 const answer =
 document.getElementById("solution").value;
 
-
 localStorage.setItem(
 "solution",
 answer
 );
-
 
 document.getElementById("solveResult")
 .textContent =
@@ -1236,13 +1022,10 @@ document.getElementById("solveResult")
 
 }
 
-
-/* AVVIO */
+/* =====================================================
+AVVIO
+===================================================== */
 
 showArchive();
 
-</script>
-
-</body>
-
-</html>
+</script> </body> </html>
