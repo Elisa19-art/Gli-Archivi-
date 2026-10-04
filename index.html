@@ -39,7 +39,12 @@ DOCUMENTI
 PERSONAGGI
 </button>
 
+<button onclick="showTree()">
+🌳 GENEALOGIA
+</button>
+
 </nav>
+
 
 
 <!-- ARCHIVIO -->
@@ -63,11 +68,52 @@ placeholder="Cerca documenti..."
 <section id="charactersSection"
 style="display:none">
 
+
+
 <h2>PERSONAGGI</h2>
 
 <div id="characters"></div>
 
 </section>
+
+
+<!-- GENEALOGIA -->
+
+<section id="treeSection" style="display:none">
+
+<h2>ALBERO GENEALOGICO</h2>
+
+<p class="tree-intro">
+Ricostruisci la storia della famiglia.
+Ogni ramo rappresenta una generazione.
+</p>
+
+<div id="familyTree">
+
+<div class="tree-trunk">
+
+<div class="tree-root">
+CHARACTER A
+</div>
+
+<div class="tree-branches">
+
+<div class="tree-branch">
+CHARACTER B
+</div>
+
+<div class="tree-branch">
+CHARACTER C
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
 
 
 <!-- DOCUMENTO -->
@@ -217,6 +263,9 @@ document.getElementById("viewer")
 
 document.getElementById("characterViewer")
 .style.display = "none";
+  
+document.getElementById("treeSection")
+.style.display = "none";
 
 }
 
@@ -232,6 +281,9 @@ document.getElementById("viewer")
 .style.display = "none";
 
 document.getElementById("characterViewer")
+.style.display = "none";
+  
+document.getElementById("treeSection")
 .style.display = "none";
 
 document.getElementById("charactersSection")
@@ -389,6 +441,24 @@ showDocuments(filtered);
 
 });
 
+function showTree() {
+
+document.getElementById("archive")
+.style.display = "none";
+
+document.getElementById("charactersSection")
+.style.display = "none";
+
+document.getElementById("viewer")
+.style.display = "none";
+
+document.getElementById("characterViewer")
+.style.display = "none";
+
+document.getElementById("treeSection")
+.style.display = "block";
+
+}
 
 /* AVVIO */
 
